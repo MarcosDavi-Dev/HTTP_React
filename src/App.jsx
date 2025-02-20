@@ -11,7 +11,7 @@ function App() {
   const [products, setProducts] = useState([]);
 
   // 4 - custom hook
-  const { data: items } = useFetch(url);
+  const { data: items, httpConfig, loading, error } = useFetch(url);
 
   // useEffect(() => {
   //   async function getData() {
@@ -37,23 +37,30 @@ function App() {
       price,
     };
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(product),
-    });
+    // 5 - refatorando post
+    httpConfig(product, "POST");
 
-    // 3 - carregamento dinâmico
-    const addedProduct = await res.json();
+    // const res = await fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(product),
+    // });
 
-    setProducts((prevProducts) => [...prevProducts, addedProduct]);
+    // // 3 - carregamento dinâmico
+    // const addedProduct = await res.json();
+
+    // setProducts((prevProducts) => [...prevProducts, addedProduct]);
   };
 
   return (
     <div className="App">
       <h1>HTTP em React</h1>
+      {/* 6 - loading */}
+      {loading && <p>Carregando...</p>}
+      {/* 7 - tratando o error */}
+      {error && <p>{error}</p>}
       {/* 1 - Resgate de dados */}
       <ul>
         {items &&
@@ -81,7 +88,10 @@ function App() {
             onChange={(e) => setPrice(e.target.value)}
           />
         </label>
-        <input type="submit" value="Enviar" />
+        {/* <input type="submit" value="Enviar" /> */}
+        {/* 7 - loading post */}
+        {loading && <input type="submit" disabled value="Aguarde" />}
+        {!loading && <input type="submit" value="Enviar" />}
       </form>
     </div>
   );

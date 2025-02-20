@@ -29,6 +29,21 @@
       "id": "97a5",
       "name": "carregamento",
       "price": "20"
+    },
+    {
+      "id": "e4fe",
+      "name": "Teste post",
+      "price": "10"
+    },
+    {
+      "id": "1d12",
+      "name": "Teste",
+      "price": "25"
+    },
+    {
+      "id": "e8bb",
+      "name": "Teste",
+      "price": "25"
     }
   ]
 }
